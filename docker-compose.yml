@@ -1,0 +1,52 @@
+version: '2'
+
+services:
+  redis:
+    image: redis
+    networks:
+      - elk
+    ports:
+      - "6379:6379"
+    expose:
+      - "6379"
+
+  elasticsearch:
+    image: elasticsearch:5
+    networks:
+      - elk
+    ports:
+      - "9200:9200"
+    expose:
+      - "9200"
+
+  kibana:
+    image: kibana:5
+    networks:
+      - elk
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200 
+    ports:
+      - "5601:5601"
+    expose:
+      - "5601"
+    depends_on:
+      - elasticsearch
+
+  logstash_worker:
+    build: logstash_worker/
+    networks:
+      - elk
+    depends_on:
+      - redis
+      - elasticsearch
+
+  logstash_client:
+    build: logstash_client/
+    networks:
+      - elk
+    depends_on:
+      - redis
+
+networks:
+  elk:
+    driver: bridge
