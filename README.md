@@ -48,7 +48,12 @@ Navigate to Kibana (see Access Points below), and you should see your log event.
 You can now modify the client or worker configurations (`./logstash_{client,worker}/{client,worker}.conf`) to test whatever you'd like. You will see a message similar to the following when the configuration is reloaded:
 
 ```
-logstash_client_1  | 19:50:30.202 [Ruby-0-Thread-3: /usr/share/logstash/vendor/bundle/jruby/1.9/gems/stud-0.0.22/lib/stud/task.rb:22] WARN  logstash.agent - fetched new config for pipeline. upgrading.. {:pipeline=>"main", :config=>"input {\n  file {\n    type => \"logstash-client-logs\"\n    path => [ \"/logs/*.log\" ]\n    tags => [ \"logstash-client-logs\" ]\n  }\n}\n\noutput {\n  stdout {\n    codec => rubydebug\n  }\n\n  redis {\n    host      => \"${LOGSTASH_REDIS_HOST:redis}\"\n    key       => \"${LOGSTASH_REDIS_KEY:logstash}\"\n    data_type => \"${LOGSTASH_DATA_TYPE:list}\"\n  }\n}\n\n"}
+logstash_client_1  | 19:50:30.202 [Ruby-0-Thread-3: /usr/share/logstash/vendor/bundle/jruby/1.9/gems/stu
+d-0.0.22/lib/stud/task.rb:22] WARN  logstash.agent - fetched new config for pipeline. upgrading.. {:pipe
+line=>"main", :config=>"input {\n  file {\n    type => \"logstash-client-logs\"\n    path => [ \"/logs/*
+.log\" ]\n    tags => [ \"logstash-client-logs\" ]\n  }\n}\n\noutput {\n  stdout {\n    codec => rubydeb
+ug\n  }\n\n  redis {\n    host      => \"${LOGSTASH_REDIS_HOST:redis}\"\n    key       => \"${LOGSTASH_R
+EDIS_KEY:logstash}\"\n    data_type => \"${LOGSTASH_DATA_TYPE:list}\"\n  }\n}\n\n"}
 ```
 
 ## Running
