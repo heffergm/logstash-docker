@@ -58,7 +58,11 @@ EDIS_KEY:logstash}\"\n    data_type => \"${LOGSTASH_DATA_TYPE:list}\"\n  }\n}\n\
 
 ## Running
 
-`docker-compose up`
+`docker-compose up` will download all the required images and start all services.
+
+After you exit all running containers, their state will be saved. So if you again run `docker-compose up`, any data you've loaded into Elasticsearch will still be there. 
+
+If you desire to start over from scratch: `docker-compose rm`, then `docker-compose up`.
 
 ## Access Points
 
