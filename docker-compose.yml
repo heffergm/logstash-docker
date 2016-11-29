@@ -33,26 +33,26 @@ services:
       - elasticsearch
 
   logstash_worker:
-    build: logstash_worker/
+    image: logstash:5
     networks:
       - elk
     depends_on:
       - redis
       - elasticsearch
     volumes:
-      - ./logstash_worker:/logstash
-    command: ["-f", "/logstash/worker.conf", "--config.reload.automatic"]
+      - ./conf:/conf
+    command: ["-f", "/conf/worker.conf", "--config.reload.automatic"]
 
   logstash_client:
-    build: logstash_client/
+    image: logstash:5
     networks:
       - elk
     depends_on:
       - redis
     volumes:
-      - ./logstash_client:/logstash
+      - ./conf:/conf
       - ./logs:/logs
-    command: ["-f", "/logstash/client.conf", "--config.reload.automatic"]
+    command: ["-f", "/conf/client.conf", "--config.reload.automatic"]
 
 networks:
   elk:

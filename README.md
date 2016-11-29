@@ -9,9 +9,9 @@ Docker compose setup to allow running of the ELK stack using a Redis transport. 
 - Logstash (worker)
 
 The Logstash worker's job is simply to watch Redis for new data and output it to Elasticsearch.
-The Logstash client is configured to pick up anything with a .log suffix in the `/logs` on the container and output anything it finds there into the Redis transport. Logstash on its own will reload its configuration file (`/client.conf` or `/worker.conf`) every three seconds.
+The Logstash client is configured to pick up anything with a .log suffix in the `/logs` directory and output anything it finds there into the Redis transport. Logstash on its own will reload its configuration file (`conf/client.conf` or `conf/worker.conf`) every three seconds.
 
-Both /logs and the logstash client and worker config files are mounted as volumes from the local host, meaning you can place log files directly in the logs/ directory locally and they will get picked up by logstash inside the container. Similarly, you can edit the client or worker configs locally and the changes will be picked up by the running processes.
+Both logs directory and the logstash client and worker config files are mounted as volumes from the local host, meaning you can place log files directly in the logs/ directory locally and they will get picked up by logstash inside the container. Similarly, you can edit the client or worker configs locally and the changes will be picked up by the running processes.
 
 Therefore, the workflow would be along the lines of:
 
@@ -45,7 +45,7 @@ logstash_worker_1  | }
 
 Navigate to Kibana (see Access Points below), and you should see your log event. Note that on initial startup, you'll need to set up the default mapping in Kibana. Accepting the defaults will accomplish this.
 
-You can now modify the client or worker configurations (`./logstash_{client,worker}/{client,worker}.conf`) to test whatever you'd like. You will see a message similar to the following when the configuration is reloaded:
+You can now modify the client or worker configurations (`./conf/{client,worker}.conf`) to test whatever you'd like. You will see a message similar to the following when the configuration is reloaded:
 
 ```
 logstash_client_1  | 19:50:30.202 [Ruby-0-Thread-3: /usr/share/logstash/vendor/bundle/jruby/1.9/gems/stu
