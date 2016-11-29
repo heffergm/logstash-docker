@@ -53,5 +53,5 @@ You can now modify the client configuration (`/client.conf`) to test whatever yo
 
 The following ports are forwarded locally for your convenience:
 
-- [Kibana](http://localhost:5601)
-- [Elasticsearch](http://localhost:9200)
+- [Kibana](http://localhost:5601) : localhost:5601
+- [Elasticsearch](http://localhost:9200) : localhost:9200
