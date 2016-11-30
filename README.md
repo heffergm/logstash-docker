@@ -11,7 +11,7 @@ Docker compose setup to allow running of the ELK stack using a Redis transport. 
 The Logstash worker's job is simply to watch Redis for new data and output it to Elasticsearch.
 The Logstash client is configured to pick up anything with a .log suffix in the `/logs` directory and output anything it finds there into the Redis transport. Logstash on its own will reload its configuration file (`conf/client.conf` or `conf/worker.conf`) every three seconds.
 
-Both logs directory and the logstash client and worker config files are mounted as volumes from the local host, meaning you can place log files directly in the logs/ directory locally and they will get picked up by logstash inside the container. Similarly, you can edit the client or worker configs locally and the changes will be picked up by the running processes.
+Both the logs directory and the logstash client and worker config files are mounted as volumes from the local host, meaning you can place log files directly in the logs/ directory locally and they will get picked up by logstash inside the container. Similarly, you can edit the client or worker configs locally and the changes will be picked up by the running processes.
 
 Therefore, the workflow would be along the lines of:
 
@@ -68,6 +68,6 @@ If you desire to start over from scratch: `docker-compose rm`, then `docker-comp
 
 The following ports are forwarded locally for your convenience:
 
-- Redis: localhost:5601
+- Redis: localhost:6379
 - [Kibana](http://localhost:5601): localhost:5601
 - [Elasticsearch](http://localhost:9200): localhost:9200
