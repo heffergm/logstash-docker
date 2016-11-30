@@ -23,12 +23,12 @@ services:
     image: kibana:5
     networks:
       - elk
-    environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200 
     ports:
       - "5601:5601"
     expose:
       - "5601"
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
     depends_on:
       - elasticsearch
 
@@ -36,22 +36,22 @@ services:
     image: logstash:5
     networks:
       - elk
+    volumes:
+      - ./conf:/conf
     depends_on:
       - redis
       - elasticsearch
-    volumes:
-      - ./conf:/conf
     command: ["-f", "/conf/worker.conf", "--config.reload.automatic"]
 
   logstash_client:
     image: logstash:5
     networks:
       - elk
-    depends_on:
-      - redis
     volumes:
       - ./conf:/conf
       - ./logs:/logs
+    depends_on:
+      - redis
     command: ["-f", "/conf/client.conf", "--config.reload.automatic"]
 
 networks:
