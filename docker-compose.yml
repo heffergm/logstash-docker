@@ -2,7 +2,7 @@ version: '2'
 
 services:
   redis:
-    image: redis
+    image: redis:3.2.5
     networks:
       - elk
     ports:
@@ -11,7 +11,7 @@ services:
       - "6379"
 
   elasticsearch:
-    image: elasticsearch:5
+    image: elasticsearch:5.0.1
     networks:
       - elk
     ports:
@@ -20,7 +20,7 @@ services:
       - "9200"
 
   kibana:
-    image: kibana:5
+    image: kibana:5.0.1
     networks:
       - elk
     ports:
@@ -33,7 +33,7 @@ services:
       - elasticsearch
 
   logstash_worker:
-    image: logstash:5
+    image: logstash:5.0.1
     networks:
       - elk
     volumes:
@@ -44,7 +44,7 @@ services:
     command: ["-f", "/conf/worker.conf", "--config.reload.automatic"]
 
   logstash_client:
-    image: logstash:5
+    image: logstash:5.0.1
     networks:
       - elk
     volumes:
