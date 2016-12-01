@@ -13,7 +13,23 @@ The Logstash client is configured to pick up anything with a .log suffix in the 
 
 Both the logs directory and the logstash client and worker config files are mounted as volumes from the local host, meaning you can place log files directly in the logs/ directory locally and they will get picked up by logstash inside the container. Similarly, you can edit the client or worker configs locally and the changes will be picked up by the running processes.
 
-Therefore, the workflow would be along the lines of:
+## Running
+
+`docker-compose up` will download all the required images and start all services.
+
+After you exit all running containers, their state will be saved. So if you again run `docker-compose up`, any data you've loaded into Elasticsearch will still be there.
+
+If you desire to start over from scratch: `docker-compose rm`, then `docker-compose up`.
+
+## Access Points
+
+The following ports are forwarded locally for your convenience:
+
+- Redis: localhost:6379
+- [Kibana](http://localhost:5601): localhost:5601
+- [Elasticsearch](http://localhost:9200): localhost:9200
+
+## Example Workflow
 
 Start the stack. Echo some test data to a file: `echo "FINDME" >> logs/test.log`. You should see output from docker stdout similar to the following:
 
@@ -43,7 +59,7 @@ logstash_worker_1  |     ]
 logstash_worker_1  | }
 ```
 
-Navigate to Kibana (see Access Points below), and you should see your log event. Note that on initial startup, you'll need to set up the default mapping in Kibana. Accepting the defaults will accomplish this.
+Navigate to Kibana, and you should see your log event. Note that on initial startup, you'll need to set up the default mapping in Kibana. Accepting the defaults will accomplish this.
 
 You can now modify the client or worker configurations (`./conf/{client,worker}.conf`) to test whatever you'd like. You will see a message similar to the following when the configuration is reloaded:
 
@@ -55,19 +71,3 @@ line=>"main", :config=>"input {\n  file {\n    type => \"logstash-client-logs\"\
 ug\n  }\n\n  redis {\n    host      => \"${LOGSTASH_REDIS_HOST:redis}\"\n    key       => \"${LOGSTASH_R
 EDIS_KEY:logstash}\"\n    data_type => \"${LOGSTASH_DATA_TYPE:list}\"\n  }\n}\n\n"}
 ```
-
-## Running
-
-`docker-compose up` will download all the required images and start all services.
-
-After you exit all running containers, their state will be saved. So if you again run `docker-compose up`, any data you've loaded into Elasticsearch will still be there.
-
-If you desire to start over from scratch: `docker-compose rm`, then `docker-compose up`.
-
-## Access Points
-
-The following ports are forwarded locally for your convenience:
-
-- Redis: localhost:6379
-- [Kibana](http://localhost:5601): localhost:5601
-- [Elasticsearch](http://localhost:9200): localhost:9200
