@@ -23,7 +23,7 @@ logstash_client_1  |           "path" => "/logs/test.log",
 logstash_client_1  |     "@timestamp" => 2016-11-29T17:09:32.543Z,
 logstash_client_1  |       "@version" => "1",
 logstash_client_1  |           "host" => "a55aab70d5c0",
-logstash_client_1  |        "message" => "stuff",
+logstash_client_1  |        "message" => "FINDME",
 logstash_client_1  |           "type" => "logstash-client-logs",
 logstash_client_1  |           "tags" => [
 logstash_client_1  |         [0] "logstash-client-logs"
@@ -35,7 +35,7 @@ logstash_worker_1  |           "path" => "/logs/test.log",
 logstash_worker_1  |     "@timestamp" => 2016-11-29T17:09:32.543Z,
 logstash_worker_1  |       "@version" => "1",
 logstash_worker_1  |           "host" => "a55aab70d5c0",
-logstash_worker_1  |        "message" => "stuff",
+logstash_worker_1  |        "message" => "FINDME",
 logstash_worker_1  |           "type" => "logstash-client-logs",
 logstash_worker_1  |           "tags" => [
 logstash_worker_1  |         [0] "logstash-client-logs"
